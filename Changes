@@ -1,0 +1,93 @@
+Revision history for Perl extension Search::Sitemap.
+
+2.00
+    - Renamed from WWW::Google::SiteMap to Search::Sitemap, to better reflect
+      that it can be used for search engines other than Google.
+    - Corrected some README inaccuracies.
+    - Split Search::Sitemap::Robot into it's own distribution.
+    - Corrected a quoting problem in the Search::Sitemap:Robot
+      documentation, so the sample code should work now.  Reported by
+      Hans van Harten.
+    - Fixed a bug that added the wrong lastmod time when given an
+      HTTP::Response object.
+
+1.09
+    - Replaced %F with %Y-%m-%d in strftime calls, to correct a Solaris bug
+      (since Solaris strftime doesn't know about %F).  Reproted by Fredrik
+      Acosta.
+    - Added more information to error messages when parsing an existing
+      sitemap fails.  Reported by Vinko Vrsalovic Bolte.
+
+1.08
+    - Converted installer from ExtUtils::MakeMaker to Module::Install, which
+      should make it easier to install for Windows users.
+    - Fixed a uri-encoding problem in WWW::Google::SiteMap::URL, reported
+      by Jeff Horn.
+    - Added some additional test cases and cleaned up some test cases.
+
+1.07
+    - Added changes for 1.06 to Changes file, which were accidentally left
+      out of the last release.
+    - Fixed the WWW-Google-SiteMap-Robot.t test to skip testing if
+      WWW::Mechanize is not installed, reported by Jan Kratochvil.
+
+1.06
+    - Correction to documentation for WWW::Google::SiteMap::Robot
+      ($robot->start should be $robot->run), reported by Martin Kissner.
+    - Adjusted WWW::Google::SiteMap::Robot to discard anchors from URLs,
+      reported by Martin Kissner.
+   
+1.05
+    - Removed an accidental prerequisite from WWW::Google::SiteMap::URL.  You
+      can give it DateTime objects to set the lastmod option, but you don't
+      have to, there are other ways to set it as well.
+
+1.04
+    - Fixed a documentation error in WWW::Google::SiteMap, and a problem with
+      the XML headers generated for sitemap indexes, both reported by
+      Michael Smith.
+    - Use 'use vars' instead of 'our' for older versions of perl.
+
+1.03
+    - Removed some leftover debugging output from WWW::Google::SiteMap::Robot.
+    - Fixed date generation to deal with strangeness in the dates that Google
+      will accept.  Note that this means some date/time strings that were
+      previously accepted may now fail.  See L<WWW::Google::SiteMap::URL> for
+      details of the acceptable values to lastmod().
+    - Added some more tests.
+
+1.02
+    - Fix a problem caused by the switch to XML::Twig, which was leaving off
+      some of the XML header information.  Reported by Olaf Anders.
+    - Fixed a bug with WWW::Google::SiteMap::Robot, which forgot to load the
+      WWW::Google::SiteMap::Ping module before trying to send pings.
+ 
+1.01
+    - Accidentally forgot to include the new WWW::Google::SiteMap::Robot
+      class, which helps build sitemaps by spidering your web site.
+
+1.00
+    - Version 1.00 Released!
+    - Fixed Zlib detection problem reported by Lance Cleveland.
+    - Check to make sure that the sitemap file was opened correctly, rather
+      than just crashing when we try to write to it, also reported by
+      Lance Cleveland.
+    - Added support for sitemap indexes (see WWW::Google::SiteMap::Index)
+    - Added support for notifying Google when your sitemaps and sitemap
+      indexes are updated (see WWW::Google::SiteMap::Ping).  Suggested by
+      Frank Naude.
+    - Fixed a bug in the ISO-8601 time format checking.
+
+0.03
+    - Changed from XML::Simple to XML::Twig for XML parsing/generating, this
+      means you can now validate your sitemaps with an XML validator.
+    - Fixed some documentation errors, spotted by Ing. Branislav Gerzo
+
+0.02
+    - Renamed from Google::SiteMap to WWW::Google::SiteMap, shouldn't have
+      created a new top-level namespace in the first place.
+
+0.01
+	- original version; created by h2xs 1.23 with options
+		-X Google::SiteMap
+
