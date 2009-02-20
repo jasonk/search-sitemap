@@ -17,4 +17,4 @@ ok( $index->add(
     lastmod     => '2005-07-11',
 ) );
 
-ok( $index->write( 'text-sitemap.gz' ) );
+ok( $index->write( 'test-sitemap.gz' ) );

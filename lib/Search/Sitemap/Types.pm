@@ -1,6 +1,6 @@
 package Search::Sitemap::Types;
 use strict; use warnings;
-our $VERSION = '0.01';
+our $VERSION = '2.00';
 our $AUTHORITY = 'cpan:JASONK';
 use MooseX::Types -declare => [qw(
     SitemapURL SitemapUrlStore SitemapChangeFreq SitemapLastMod SitemapPriority

@@ -1,0 +1,3 @@
+steps = FindVersion, ChangeVersion, CheckChangeLog, CheckVersionsMatch, DistTest, Commit, Tag, MakeDist, UploadCPAN, Twitter
+
+twitter.config = ~/.twitterrc

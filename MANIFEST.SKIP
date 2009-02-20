@@ -32,4 +32,7 @@
 \bcover_db\b
 
 # Avoid .prove directories
-\b\.prove\b
+\B\.prove\b
+
+# Don't ship the shipit config
+\B\.shipit\b
