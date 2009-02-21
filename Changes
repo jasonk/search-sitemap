@@ -1,5 +1,8 @@
 Revision history for Perl extension Search::Sitemap.
 
+2.01
+    - Minor updates.
+
 2.00
     - Renamed from WWW::Google::SiteMap to Search::Sitemap, to better reflect
       that it can be used for search engines other than Google.
