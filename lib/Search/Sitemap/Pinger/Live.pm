@@ -26,6 +26,13 @@ Search::Sitemap::Pinger::Live - Search::Sitemap::Pinger for Live
 
 See L<Search::Sitemap::Ping>.
 
+=head1 METHODS
+
+=head2 submit_url_for( $url )
+
+Given a url for a sitemap file, returns the URL that you need to use in a GET
+request in order to submit the provided url to the Search Engine.
+
 =head1 SEE ALSO
 
 L<Search::Sitemap::Ping>

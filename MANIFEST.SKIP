@@ -36,3 +36,7 @@
 
 # Don't ship the shipit config
 \B\.shipit\b
+
+# Don't ship these files, I don't know if we're allowed to
+sitemap.xsd
+siteindex.xsd
