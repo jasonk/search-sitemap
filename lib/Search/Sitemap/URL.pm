@@ -1,6 +1,6 @@
 package Search::Sitemap::URL;
 use strict; use warnings;
-our $VERSION = '2.02';
+our $VERSION = '2.03';
 our $AUTHORITY = 'cpan:JASONK';
 use Moose;
 use MooseX::ClassAttribute;

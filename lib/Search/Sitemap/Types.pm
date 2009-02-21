@@ -1,6 +1,6 @@
 package Search::Sitemap::Types;
 use strict; use warnings;
-our $VERSION = '2.02';
+our $VERSION = '2.03';
 our $AUTHORITY = 'cpan:JASONK';
 use MooseX::Types -declare => [qw(
     SitemapURL SitemapUrlStore SitemapChangeFreq SitemapLastMod SitemapPriority
@@ -48,15 +48,6 @@ coerce SitemapChangeFreq, from Str, via {
     return;
 };
 
-subtype SitemapLastMod, as 'Str', where {
-    /^\d\d\d\d-\d\d-\d\d(T\d\d:\d\d:\d\d\+\d\d?:\d\d)?$/
-};
-
-class_type 'DateTime';
-class_type 'HTTP::Response';
-class_type 'File::stat';
-class_type 'Path::Class::File';
-
 my $lastmod_re = qr/ ^
     (\d\d\d\d-\d\d-\d\d)    # date
     (?:                     # time portion is optional
@@ -65,6 +56,13 @@ my $lastmod_re = qr/ ^
         (Z|\+\d\d?)(:\d\d)? # timezone offset, with optional seconds
     )?
 $ /xi;
+
+subtype SitemapLastMod, as 'Str', where { /$lastmod_re/ };
+
+class_type 'DateTime';
+class_type 'HTTP::Response';
+class_type 'File::stat';
+class_type 'Path::Class::File';
 
 coerce SitemapLastMod,
     from Str, via {

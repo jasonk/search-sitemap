@@ -1,5 +1,10 @@
 Revision history for Perl extension Search::Sitemap.
 
+2.03
+    - Fixed a bug where last modified times specified with a negative
+      timezone offset didn't work.  Reported by russelj9.
+    - Fixed a problem with the last modified type constraint and coercion.
+
 2.02
     - Minor updates to ShipIt process.
 
