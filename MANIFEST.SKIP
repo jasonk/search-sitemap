@@ -5,10 +5,10 @@
 ,v$
 \B\.svn\b
 \b_darcs\b
-\B\.git\b
+\B\.git(ignore)?\b
 
 # Avoid Makemaker generated and utility files.
-\bMANIFEST\.bak
+\bMANIFEST\.(bak|SKIP)
 \bMakefile$
 \bblib/
 \bMakeMaker-\d
@@ -40,3 +40,6 @@
 # Don't ship these files, I don't know if we're allowed to
 sitemap.xsd
 siteindex.xsd
+
+test-sitemap.gz
+test.xml
