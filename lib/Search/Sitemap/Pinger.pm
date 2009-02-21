@@ -14,9 +14,7 @@ use Class::Trigger qw(
     before_submit_url after_submit_url
     success failure
 );
-use namespace::clean -except => [qw(
-    meta add_trigger call_trigger last_trigger_results
-)];
+use namespace::clean -except => [qw( meta add_trigger call_trigger )];
 
 coerce( __PACKAGE__, from 'Str', via {
     my $class = join( '::', __PACKAGE__, $_ );

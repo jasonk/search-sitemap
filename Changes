@@ -10,6 +10,7 @@ Revision history for Perl extension Search::Sitemap.
       Hans van Harten.
     - Fixed a bug that added the wrong lastmod time when given an
       HTTP::Response object.
+    - Added support for Google's Mobile Sitemap extension.
 
 1.09
     - Replaced %F with %Y-%m-%d in strftime calls, to correct a Solaris bug

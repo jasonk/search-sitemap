@@ -53,8 +53,14 @@ has 'priority'      => (
     predicate   => 'has_priority',
     clearer     => 'clear_priority',
 );
+has 'mobile'        => (
+    is          => 'rw',
+    isa         => 'Bool',
+    predicate   => 'has_mobile',
+    clearer     => 'clear_mobile',
+);
 
-sub loc_as_elt {
+sub _loc_as_elt {
     my $self = shift;
     return unless $self->has_loc;
     my $loc = XML::Twig::Elt->new(
@@ -62,6 +68,12 @@ sub loc_as_elt {
     );
     $loc->set_asis( 1 );
     return $loc;
+}
+
+sub _mobile_as_elt {
+    my $self = shift;
+    return unless $self->mobile;
+    return XML::Twig::Elt->new( 'mobile', namespace => 'mobile' );
 }
 
 sub as_elt {
@@ -72,7 +84,7 @@ sub as_elt {
 
     my @elements = ();
     for my $f ( @fields ) {
-        my $method = $f.'_as_elt';
+        my $method = '_'.$f.'_as_elt';
         my $val;
         if ( $self->can( $method ) ) {
             $val = $self->$method();
@@ -189,10 +201,24 @@ that would be useful, let me know and I'll consider them.
 Get or set the priority.  This field is not used in sitemap indexes, only in
 sitemaps.
 
+=head2 mobile()
+
+Set to a true value if this URL refers to a page that is intended for mobile
+devices.  This will affect how some search engines index the URL.
+
+For more information on mobile sitemaps, see
+L<http://www.google.com/support/webmasters/bin/answer.py?answer=34627>
+
+=head2 as_elt
+
+Returns this URL and it's associated data as an L<XML::Twig::Elt> object.
+This is primarily an internal use method, you probably don't need to mess
+with it.
+
 =head1 MODULE HOME PAGE
 
 The home page of this module is
-L<http://www.jasonkohles.com/software/Search-Sitemap>.  This is where you
+L<http://www.jasonkohles.com/software/search-sitemap>.  This is where you
 can always find the latest version, development versions, and bug reports.  You
 will also find a link there to report bugs.
 
@@ -204,9 +230,11 @@ L<Search::Sitemap::Index>
 
 L<Search::Sitemap::Ping>
 
-L<http://www.jasonkohles.com/software/Search-Sitemap/>
+L<http://www.jasonkohles.com/software/search-sitemap/>
 
 L<http://www.sitemaps.org/>
+
+L<http://www.google.com/support/webmasters/bin/answer.py?answer=34648>
 
 =head1 AUTHOR
 

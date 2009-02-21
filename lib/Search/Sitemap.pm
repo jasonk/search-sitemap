@@ -123,6 +123,21 @@ class_has 'url_fields'  => (
     default     => sub { [qw( loc lastmod changefreq priority )] }
 );
 
+sub BUILD {
+    my ( $self, $args ) = @_;
+
+    $self->urls->add_trigger( put => sub {
+        my $self = shift;
+        return if $self->extensions->{ 'mobile' };
+        for my $url ( @_ ) {
+            if ( $url->has_mobile && $url->mobile ) {
+                $self->extensions->{ 'mobile' } = 'http://www.google.com/schemas/sitemap-mobile/1.0';
+                return;
+            }
+        }
+    } );
+}
+
 sub read {
     my ( $self, $file ) = @_;
 
@@ -302,6 +317,48 @@ This means you can do any of these:
     http://www.jasonkohles.com/software/text-fakedata/
   ) );
   foreach my $url ( $map->urls ) { $url->changefreq( 'daily' ) }
+
+=head2 update
+
+Similar to L</add>, but while L</add> will replace an existing object that
+has the same URL, update will update the provided values.
+
+As as example, if you do this:
+
+    $map->add(
+        loc         => 'http://www.example.com/',
+        priority    => 1.0,
+    );
+    $map->add(
+        loc         => 'http://www.example.com/',
+        changefreq  => 'daily',
+    );
+
+The sitemap will end up containing this:
+
+    <url>
+        <loc>http://www.example.com</loc>
+        <changefreq>daily</changefreq>
+    </url>
+
+But if instead you use update:
+
+    $map->update(
+        loc         => 'http://www.example.com/',
+        priority    => 1.0,
+    );
+    $map->update(
+        loc         => 'http://www.example.com/',
+        changefreq  => 'daily',
+    );
+
+This sitemap will end up with this:
+
+    <url>
+        <loc>http://www.example.com</loc>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
 
 =head2 xml();
 

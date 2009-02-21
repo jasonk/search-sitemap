@@ -9,9 +9,7 @@ use Class::Trigger qw(
     before_submit after_submit
     before_engine after_engine
 );
-use namespace::clean -except => [qw(
-    meta add_trigger call_trigger last_trigger_results
-)];
+use namespace::clean -except => [qw( meta add_trigger call_trigger )];
 
 has 'urls'  => (
     is          => 'rw',

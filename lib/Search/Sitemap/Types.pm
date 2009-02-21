@@ -137,3 +137,33 @@ coerce SitemapUrlStore,
 
 __PACKAGE__->meta->make_immutable;
 1;
+__END__
+
+=head1 NAME
+
+Search::Sitemap::Types - MooseX::Types library for Search::Sitemap
+
+=head1 DESCRIPTION
+
+This is a L<MooseX::Types> library containing type constrations and coercions
+for L<Search::Sitemap>.
+
+=head1 SEE ALSO
+
+L<Search::Sitemap>
+
+L<MooseX::Types>
+
+=head1 AUTHOR
+
+Jason Kohles, E<lt>email@jasonkohles.comE<gt>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2005-2009 by Jason Kohles
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=cut
+
