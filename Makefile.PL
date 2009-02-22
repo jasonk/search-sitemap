@@ -9,6 +9,10 @@ requires $_ for qw(
     MooseX::Types::Moose MooseX::ClassAttribute namespace::clean
 );
 
+test_requires $_ for qw(
+    Test::Most Test::Mock::LWP::UserAgent
+);
+
 extra_tests;
 auto_install;
 WriteAll;
