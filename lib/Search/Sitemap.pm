@@ -252,8 +252,6 @@ such as when they were last modified, how frequently they change, etc.
 
 This module allows you to create and modify sitemaps.
 
-=head1 ATTRIBUTES
-
 =head1 METHODS
 
 =head2 new()
@@ -381,7 +379,7 @@ arguments.
 =head1 MODULE HOME PAGE
 
 The home page of this module is
-L<http://www.jasonkohles.com/software/Search-Sitemap>.  This is where you can
+L<http://www.jasonkohles.com/software/search-sitemap>.  This is where you can
 always find the latest version, development versions, and bug reports.  You
 will also find a link there to report bugs.
 
@@ -393,7 +391,7 @@ L<Search::Sitemap::Ping>
 
 L<Search::Sitemap::Robot>
 
-L<http://www.jasonkohles.com/software/Search-Sitemap>
+L<http://www.jasonkohles.com/software/search-sitemap>
 
 L<http://www.sitemaps.org/>
 
