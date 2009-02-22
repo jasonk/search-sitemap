@@ -1,5 +1,8 @@
 Revision history for Perl extension Search::Sitemap.
 
+2.04
+    - Added missing dependencies to Makefile.PL
+
 2.03
     - Fixed a bug where last modified times specified with a negative
       timezone offset didn't work.  Reported by russelj9.
