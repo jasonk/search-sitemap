@@ -5,20 +5,23 @@
 ,v$
 \B\.svn\b
 \b_darcs\b
+\B\.git\b
 \B\.git(ignore)?\b
 
 # Avoid Makemaker generated and utility files.
-\bMANIFEST\.(bak|SKIP)
+\bMANIFEST\.bak
 \bMakefile$
 \bblib/
 \bMakeMaker-\d
 \bpm_to_blib\.ts$
 \bpm_to_blib$
-\bblibdirs\.ts$         # 6.18 through 6.25 generated this
+\bblibdirs\.ts$
+\bMANIFEST\.(bak|SKIP)
 
 # Avoid Module::Build generated and utility files.
 \bBuild$
 \b_build/
+\bBuild\.bat$
 
 # Avoid temp and backup files.
 ~$
@@ -27,9 +30,18 @@
 \b\.#
 \.bak$
 \.sw.$
+\b\.DS_Store$
 
 # Avoid Devel::Cover files.
 \bcover_db\b
+
+# Don't include utility configuration files
+\B\.shipit$
+\B\.prove$
+\B\.gitignore$
+
+# Don't include the MANIFEST.SKIP file itself
+^MANIFEST\.SKIP$
 
 # Avoid .prove directories
 \B\.prove\b
@@ -40,6 +52,6 @@
 # Don't ship these files, I don't know if we're allowed to
 sitemap.xsd
 siteindex.xsd
-
 test-sitemap.gz
 test.xml
+
