@@ -1,6 +1,6 @@
 package Search::Sitemap;
 use strict; use warnings;
-our $VERSION = '2.04';
+our $VERSION = '2.05';
 our $AUTHORITY = 'cpan:JASONK';
 use Moose;
 use Search::Sitemap::Types qw(
