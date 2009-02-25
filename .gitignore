@@ -1,3 +1,4 @@
+
 cover_db
 META.yml
 Makefile
@@ -7,6 +8,9 @@ pm_to_blib
 MANIFEST
 Makefile.old
 .*.swp
+.prove
+*.bak
+*~
+
 test-sitemap.gz
 test.xml
-.prove
