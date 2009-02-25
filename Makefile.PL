@@ -7,10 +7,11 @@ requires $_ for qw(
     Moose LWP::UserAgent XML::Twig IO::File Carp POSIX IO::Zlib Class::Trigger
     HTML::Entities Module::Find Moose::Util::TypeConstraints MooseX::Types
     MooseX::Types::Moose MooseX::ClassAttribute namespace::clean
+    MooseX::Types::URI
 );
 
 test_requires $_ for qw(
-    Test::Most Test::Mock::LWP::UserAgent
+    Test::Most Test::Mock::LWP::UserAgent ok
 );
 
 extra_tests;

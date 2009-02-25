@@ -1,5 +1,9 @@
 Revision history for Perl extension Search::Sitemap.
 
+2.05
+    - Added some more missing dependencies to Makefile.PL, reported by
+      Andreas Koenig. [rt.cpan.org #43593]
+
 2.04
     - Added missing dependencies to Makefile.PL
 
