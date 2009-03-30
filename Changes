@@ -1,5 +1,12 @@
 Revision history for Perl extension Search::Sitemap.
 
+2.07
+    - Fixed bug that caused the sitemap to include empty tag for optional
+      attributes when no value was specified, reported by Christopher J.
+      Madsen. [rt.cpan.org #44660]
+    - Corrected the clearer for changefreq, also reported by Christopher J.
+      Madsen. [rt.cpan.org #44660]
+
 2.06
     - Added another missing dependency.
 

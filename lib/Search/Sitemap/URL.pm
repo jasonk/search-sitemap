@@ -1,6 +1,6 @@
 package Search::Sitemap::URL;
 use strict; use warnings;
-our $VERSION = '2.06';
+our $VERSION = '2.07';
 our $AUTHORITY = 'cpan:JASONK';
 use Moose;
 use MooseX::ClassAttribute;
@@ -37,7 +37,7 @@ has 'changefreq'    => (
     isa         => SitemapChangeFreq,
     coerce      => 1,
     predicate   => 'has_changefreq',
-    clearer     => 'clear_lastmod',
+    clearer     => 'clear_changefreq',
 );
 has 'lastmod'       => (
     is          => 'rw',
@@ -84,6 +84,9 @@ sub as_elt {
 
     my @elements = ();
     for my $f ( @fields ) {
+        my $exists = $self->can( "has_$f" );
+        next if $exists and not $self->$exists;
+
         my $method = '_'.$f.'_as_elt';
         my $val;
         if ( $self->can( $method ) ) {
