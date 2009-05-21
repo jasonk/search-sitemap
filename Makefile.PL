@@ -15,5 +15,4 @@ test_requires $_ for qw(
 );
 
 extra_tests;
-auto_install;
 WriteAll;
