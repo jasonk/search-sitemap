@@ -1,6 +1,6 @@
 package Search::Sitemap::Pinger;
 use strict; use warnings;
-our $VERSION = '2.07';
+our $VERSION = '2.08';
 our $AUTHORITY = 'cpan:JASONK';
 use Moose;
 use LWP::UserAgent;
@@ -8,19 +8,12 @@ use MooseX::Types::Moose qw( ArrayRef Str HashRef );
 use MooseX::Types::URI qw( Uri );
 use URI;
 use Module::Find qw( usesub );
-use Moose::Util::TypeConstraints;
 use Class::Trigger qw(
     before_submit after_submit
     before_submit_url after_submit_url
     success failure
 );
 use namespace::clean -except => [qw( meta add_trigger call_trigger )];
-
-coerce( __PACKAGE__, from 'Str', via {
-    my $class = join( '::', __PACKAGE__, $_ );
-    Class::MOP::load_class( $class );
-    return $class->new;
-} );
 
 sub ALL_PINGERS { grep { $_ ne __PACKAGE__ } usesub( __PACKAGE__ ) }
 

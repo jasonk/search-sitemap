@@ -1,5 +1,13 @@
 Revision history for Perl extension Search::Sitemap.
 
+2.08
+    - Don't make Search::Shapefile::Types immutable, it doesn't seem to work
+      anyway.
+    - Fix some MooseX::Types related warnings (and a bug) reported by
+      Andrew Solomon.  [rt.cpan.org #46737][rt.cpan.org ##46792]
+    - Cleaned up some of the type constraints, now that I better understand
+      MooseX::Types.
+
 2.07
     - Fixed bug that caused the sitemap to include empty tag for optional
       attributes when no value was specified, reported by Christopher J.

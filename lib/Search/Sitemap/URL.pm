@@ -1,6 +1,6 @@
 package Search::Sitemap::URL;
 use strict; use warnings;
-our $VERSION = '2.07';
+our $VERSION = '2.08';
 our $AUTHORITY = 'cpan:JASONK';
 use Moose;
 use MooseX::ClassAttribute;
@@ -22,7 +22,7 @@ class_has 'encode_entities'   => (
 
 class_has 'lenient'           => (
     is      => 'rw',
-    isa     => 'Bool',
+    isa     => Bool,
 );
 
 has 'loc'           => (
@@ -55,7 +55,7 @@ has 'priority'      => (
 );
 has 'mobile'        => (
     is          => 'rw',
-    isa         => 'Bool',
+    isa         => Bool,
     predicate   => 'has_mobile',
     clearer     => 'clear_mobile',
 );

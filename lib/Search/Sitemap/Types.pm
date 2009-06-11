@@ -1,28 +1,33 @@
 package Search::Sitemap::Types;
 use strict; use warnings;
-our $VERSION = '2.07';
+our $VERSION = '2.08';
 our $AUTHORITY = 'cpan:JASONK';
 use MooseX::Types -declare => [qw(
     SitemapURL SitemapUrlStore SitemapChangeFreq SitemapLastMod SitemapPriority
-    XMLPrettyPrintValue
+    XMLPrettyPrintValue XMLTwig SitemapPinger
 )];
 use MooseX::Types::Moose qw( Object HashRef Str Int Bool Num );
 use MooseX::Types::URI qw( Uri );
 use POSIX qw( strftime );
 
-subtype SitemapURL, as Object, where {
-    $_->isa( 'Search::Sitemap::URL' );
-};
+class_type( 'Search::Sitemap::URL' );
+subtype SitemapURL, as 'Search::Sitemap::URL';
 
 coerce SitemapURL,
-    from HashRef, via { Search::Sitemap::URL->new( $_ ) },
-    from Str, via { Search::Sitemap::URL->new( loc => $_ ) };
+    from HashRef, via {
+        Class::MOP::load_class( 'Search::Sitemap::URL' );
+        Search::Sitemap::URL->new( $_ );
+    },
+    from Str, via {
+        Class::MOP::load_class( 'Search::Sitemap::URL' );
+        Search::Sitemap::URL->new( loc => $_ );
+    };
 
 subtype XMLPrettyPrintValue, as Str, where {
-    $_ =~ m{
+    $_ =~ m{ ^ (
         none | nsgmls | nice | indented | indented_c | indented_a | cvs |
         wrapped | record | record_c
-    }x;
+    ) $ }x;
 };
 
 coerce XMLPrettyPrintValue,
@@ -44,7 +49,7 @@ coerce SitemapChangeFreq, from Str, via {
         y => 'yearly',
         n => 'never',
     );
-    if ( m{([ahdwmyn])}i ) { return $types{ lc $1 } }
+    if ( m{ ^( [ahdwmyn] ) }ix ) { return $types{ lc $1 } }
     return;
 };
 
@@ -57,7 +62,7 @@ my $lastmod_re = qr/ ^
     )?
 $ /xi;
 
-subtype SitemapLastMod, as 'Str', where { /$lastmod_re/ };
+subtype SitemapLastMod, as Str, where { /$lastmod_re/ };
 
 class_type 'DateTime';
 class_type 'HTTP::Response';
@@ -114,9 +119,8 @@ coerce SitemapLastMod,
 
 subtype SitemapPriority, as Num, where { $_ >= 0 && $_ <= 1 };
 
-subtype SitemapUrlStore, as Object, where {
-    $_->isa( 'Search::Sitemap::URLStore' );
-};
+class_type( 'Search::Sitemap::URLStore' );
+subtype SitemapUrlStore, as 'Search::Sitemap::URLStore';
 
 coerce SitemapUrlStore,
     from HashRef, via {
@@ -133,7 +137,19 @@ coerce SitemapUrlStore,
         return $class->new;
     };
 
-__PACKAGE__->meta->make_immutable;
+class_type( 'XML::Twig' );
+
+class_type( 'Search::Sitemap::Pinger' );
+
+subtype SitemapPinger, as 'Search::Sitemap::Pinger';
+coerce SitemapPinger, from Str, via {
+    my $class = 'Search::Sitemap::Pinger::'.$_;
+    Class::MOP::load_class( $class );
+    return $class->new;
+};
+
+class_type( 'LWP::UserAgent' );
+
 1;
 __END__
 

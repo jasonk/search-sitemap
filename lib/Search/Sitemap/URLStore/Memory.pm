@@ -1,13 +1,14 @@
 package Search::Sitemap::URLStore::Memory;
 use strict; use warnings;
-our $VERSION = '2.07';
+our $VERSION = '2.08';
 our $AUTHORITY = 'cpan:JASONK';
 use Moose;
 extends 'Search::Sitemap::URLStore';
+use MooseX::Types::Moose qw( HashRef );
 use Class::Trigger;
 use namespace::clean -except => 'meta';
 
-has 'storage'   => ( is => 'ro', isa => 'HashRef', default => sub { {} } );
+has 'storage'   => ( is => 'ro', isa => HashRef, default => sub { {} } );
 
 sub get {
     my ( $self, $url ) = @_;

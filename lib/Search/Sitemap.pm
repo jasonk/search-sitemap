@@ -1,6 +1,6 @@
 package Search::Sitemap;
 use strict; use warnings;
-our $VERSION = '2.07';
+our $VERSION = '2.08';
 our $AUTHORITY = 'cpan:JASONK';
 use Moose;
 use Search::Sitemap::Types qw(
@@ -40,13 +40,13 @@ has 'pretty'    => (
 
 class_has 'base_element'    => (
     is          => 'rw',
-    isa         => 'Str',
+    isa         => Str,
     default     => 'urlset'
 );
 
 has 'xmlparser' => (
     is      => 'rw',
-    isa     => CodeRef,
+    isa     => 'XML::Twig',
     lazy    => 1,
     default => sub {
         my $self = shift;
@@ -115,7 +115,7 @@ sub _build_xml {
     return $header.$xml->sprint();
 }
 
-class_has 'url_type'    => ( is => 'rw', isa => 'Str', default => 'url' );
+class_has 'url_type'    => ( is => 'rw', isa => Str, default => 'url' );
 class_has 'url_fields'  => (
     is          => 'rw',
     isa         => ArrayRef[Str],

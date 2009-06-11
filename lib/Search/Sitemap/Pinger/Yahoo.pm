@@ -1,6 +1,6 @@
 package Search::Sitemap::Pinger::Yahoo;
 use strict; use warnings;
-our $VERSION = '2.07';
+our $VERSION = '2.08';
 our $AUTHORITY = 'cpan:JASONK';
 use Moose;
 extends 'Search::Sitemap::Pinger';

@@ -1,6 +1,6 @@
 package Search::Sitemap::Ping;
 use strict; use warnings;
-our $VERSION = '2.07';
+our $VERSION = '2.08';
 our $AUTHORITY = 'cpan:JASONK';
 use Moose;
 use Search::Sitemap::Pinger;
@@ -9,11 +9,12 @@ use Class::Trigger qw(
     before_submit after_submit
     before_engine after_engine
 );
+use MooseX::Types::Moose qw( ArrayRef );
 use namespace::clean -except => [qw( meta add_trigger call_trigger )];
 
 has 'urls'  => (
     is          => 'rw',
-    isa         => 'ArrayRef',
+    isa         => ArrayRef,
     lazy        => 1,
     auto_deref  => 1,
     default     => sub { [] },
@@ -21,7 +22,7 @@ has 'urls'  => (
 
 has 'engines'   => (
     is          => 'rw',
-    isa         => 'ArrayRef[Search::Sitemap::Pinger]',
+    isa         => ArrayRef['Search::Sitemap::Pinger'],
     auto_deref  => 1,
     lazy        => 1,
     default     => sub { [
