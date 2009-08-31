@@ -1,6 +1,6 @@
 package Search::Sitemap::Pinger::Google;
 use strict; use warnings;
-our $VERSION = '2.08';
+our $VERSION = '2.09';
 our $AUTHORITY = 'cpan:JASONK';
 use Moose;
 extends 'Search::Sitemap::Pinger';

@@ -1,5 +1,9 @@
 Revision history for Perl extension Search::Sitemap.
 
+2.09
+    - Don't use %T for strftime, since some platforms don't support it.
+      Reported by Martin Thurn.
+
 2.08
     - Don't make Search::Shapefile::Types immutable, it doesn't seem to work
       anyway.

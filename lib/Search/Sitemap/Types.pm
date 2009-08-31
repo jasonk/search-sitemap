@@ -1,6 +1,6 @@
 package Search::Sitemap::Types;
 use strict; use warnings;
-our $VERSION = '2.08';
+our $VERSION = '2.09';
 our $AUTHORITY = 'cpan:JASONK';
 use MooseX::Types -declare => [qw(
     SitemapURL SitemapUrlStore SitemapChangeFreq SitemapLastMod SitemapPriority
@@ -87,18 +87,18 @@ coerce SitemapLastMod,
             }
             return $date.'T'.$time.$tzoff;
         } elsif ( $_ eq 'now' ) {
-            return strftime( "%Y-%m-%dT%T+00:00", gmtime( time ) );
+            return strftime( "%Y-%m-%dT%H:%M:%S+00:00", gmtime( time ) );
         } elsif ( $_ =~ /^\d+$/ ) {
-            return strftime( "%Y-%m-%dT%T+00:00", gmtime( $_ ) );
+            return strftime( "%Y-%m-%dT%H:%M:%S+00:00", gmtime( $_ ) );
         } else {
             die "Unknown string value '$_'";
         }
     },
     from Num, via {
-        return strftime( "%Y-%m-%dT%T+00:00", gmtime( $_ ) );
+        return strftime( "%Y-%m-%dT%H:%M:%S+00:00", gmtime( $_ ) );
     },
     from 'DateTime', via {
-        my ( $date, $tzoff ) = $_->strftime("%Y-%m-%dT%T","%z");
+        my ( $date, $tzoff ) = $_->strftime("%Y-%m-%dT%H:%M:%S","%z");
         if ( $tzoff =~ /^([+-])?(\d\d):?(\d\d)/ ) {
             $tzoff = sprintf( '%s%02d:%02d', $1 || '+', $2, $3 || 0 );
         } else {
@@ -108,13 +108,13 @@ coerce SitemapLastMod,
     },
     from 'HTTP::Response', via {
         my $modtime = $_->last_modified || ( time - $_->current_age );
-        return strftime( "%Y-%m-%dT%T+00:00", gmtime( $modtime ) );
+        return strftime( "%Y-%m-%dT%H:%M:%S+00:00", gmtime( $modtime ) );
     },
     from 'File::stat', via {
-        return strftime( "%Y-%m-%dT%T+00:00", gmtime( $_->mtime ) );
+        return strftime( "%Y-%m-%dT%H:%M:%S+00:00", gmtime( $_->mtime ) );
     },
     from 'Path::Class::File', via {
-        return strftime( "%Y-%m-%dT%T+00:00", gmtime( $_->stat->mtime ) );
+        return strftime( "%Y-%m-%dT%H:%M:%S+00:00", gmtime( $_->stat->mtime ) );
     };
 
 subtype SitemapPriority, as Num, where { $_ >= 0 && $_ <= 1 };

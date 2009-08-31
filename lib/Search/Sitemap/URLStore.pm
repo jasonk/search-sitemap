@@ -1,6 +1,6 @@
 package Search::Sitemap::URLStore;
 use strict; use warnings;
-our $VERSION = '2.08';
+our $VERSION = '2.09';
 our $AUTHORITY = 'cpan:JASONK';
 use Moose;
 use Class::Trigger;
