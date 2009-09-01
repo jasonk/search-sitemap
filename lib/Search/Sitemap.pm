@@ -1,6 +1,6 @@
 package Search::Sitemap;
 use strict; use warnings;
-our $VERSION = '2.09';
+our $VERSION = '2.10';
 our $AUTHORITY = 'cpan:JASONK';
 use Moose;
 use Search::Sitemap::Types qw(
@@ -92,8 +92,10 @@ sub _build_xml_headers {
     my $ext = $self->extensions;
     return {
         'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
-        'xsi:schemaLocation' => 'http://www.sitemaps.org/schemas/sitemap/0.9',
-        'url' => 'http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd',
+        'xsi:schemaLocation' => join( ' ',
+            'http://www.sitemaps.org/schemas/sitemap/0.9',
+            'http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd',
+        ),
         'xmlns' => 'http://www.sitemaps.org/schemas/sitemap/0.9',
         ( map { ( "xmlns:$_" => $ext->{ $_ } ) } keys %{ $ext } ),
     }

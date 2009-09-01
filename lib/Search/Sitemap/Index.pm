@@ -1,6 +1,6 @@
 package Search::Sitemap::Index;
 use strict; use warnings;
-our $VERSION = '2.09';
+our $VERSION = '2.10';
 our $AUTHORITY = 'cpan:JASONK';
 use Moose;
 extends 'Search::Sitemap';
@@ -9,14 +9,14 @@ use MooseX::Types::Moose qw( ArrayRef );
 use Search::Sitemap::Types qw( SitemapURL XMLPrettyPrintValue );
 use namespace::clean -except => 'meta';
 
-class_has '+base_element' => ( default => 'siteindex' );
+class_has '+base_element' => ( default => 'sitemapindex' );
 class_has '+url_type'   => ( default => 'sitemap' );
 class_has '+url_fields' => ( default => sub { [qw( loc lastmod )] } );
 
 around '_build_xml_headers' => sub {
     my $next = shift;
     my $headers = $next->( @_ );
-    $headers->{ 'url' } =~ s/sitemap\.xsd$/siteindex.xsd/;
+    $headers->{ 'xsi:schemaLocation' } =~ s/sitemap\.xsd$/siteindex.xsd/;
     return $headers;
 };
 

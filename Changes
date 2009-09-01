@@ -1,5 +1,11 @@
 Revision history for Perl extension Search::Sitemap.
 
+2.10
+    - Modified Search::Sitemap::Index to produce XML that works better in
+      XML validators.  Patch provided by Marc Tobias Metten.
+    - Fixed a bug where the wrong label was used for index files, also
+      reported by Marc Tobias Metten in RT #49325
+
 2.09
     - Don't use %T for strftime, since some platforms don't support it.
       Reported by Martin Thurn.
