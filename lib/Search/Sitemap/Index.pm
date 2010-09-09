@@ -32,12 +32,15 @@ Search::SiteMap::Index - Perl extension for managing SiteMap Indexes
 
   use Search::SiteMap::Index;
   
-  my $index = Search::SiteMap::Index->new( file => 'sitemap-index.gz' );
+  my $index = Search::SiteMap::Index->new();
+  $index->read( 'sitemap-index.gz' );
   
   $index->add( Search::SiteMap::URL->new(
     loc     => 'http://www.jasonkohles.com/sitemap1.gz',
     lastmod => '2005-11-01',
   ) );
+
+  $index->write( 'sitemap-index.gz' );
   
 =head1 DESCRIPTION
 
