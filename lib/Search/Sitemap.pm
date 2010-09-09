@@ -274,7 +274,11 @@ automatically if the filename ends with .gz.
 
 =head2 urls()
 
-Return the L<Search::Sitemap::URL> objects that make up the sitemap.
+Return the L<Search::Sitemap::URLStore> object that make up the sitemap.
+
+To get all urls (L<Search::Sitemap::URL> objects) please use:
+
+    my @urls = $map->urls->all;
 
 =head2 add( $item, [$item...] )
 
