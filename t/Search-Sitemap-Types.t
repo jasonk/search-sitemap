@@ -102,7 +102,6 @@ if ( $@ ) {
             } ( $_FN )
         ];
 EOE
-    diag "F:s: $@" if $@;
 }
 
 eval "use Path::Class::File";
@@ -121,7 +120,6 @@ if ( $@ ) {
             } ( $_FN )
         ];
 EOE
-    diag "P:C:F: $@" if $@;
 }
 
 for my $type ( sort keys %tests ) {
