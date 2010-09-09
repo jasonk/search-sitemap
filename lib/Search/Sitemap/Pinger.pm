@@ -1,6 +1,6 @@
 package Search::Sitemap::Pinger;
 use strict; use warnings;
-our $VERSION = '2.10';
+our $VERSION = '2.11';
 our $AUTHORITY = 'cpan:JASONK';
 use Moose;
 use LWP::UserAgent;

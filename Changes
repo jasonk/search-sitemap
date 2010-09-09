@@ -1,5 +1,21 @@
 Revision history for Perl extension Search::Sitemap.
 
+2.11
+    - Fixed Moose warning about coercion [rt.cpan.org #60468]
+      reported by stephen@enterity.com
+    - Fixed SitemapLastMod coercion [rt.cpan.org #59038]
+      reported by Max Kanat-Alexander
+    - Fixed small documentation bug [rt.cpan.org #57260]
+      reported by Andrew Scheller
+    - Fixed minor documentation bug [rt.cpan.org #57231]
+      reported by Andrew Scheller
+    - Fixed documentation bug around use of Search::Sitemap::Index
+      [rt.cpan.org #57420] reported by Andrew Scheller 
+    - Fixed read()/write() methods [rt.cpan.org #52742] reported by
+        info@ralfebert.de
+
+    All above were fixed by Alex J. G. Burzyński
+
 2.10
     - Modified Search::Sitemap::Index to produce XML that works better in
       XML validators.  Patch provided by Marc Tobias Metten.

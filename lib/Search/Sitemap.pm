@@ -1,6 +1,6 @@
 package Search::Sitemap;
 use strict; use warnings;
-our $VERSION = '2.10';
+our $VERSION = '2.11';
 our $AUTHORITY = 'cpan:JASONK';
 use Moose;
 use Search::Sitemap::Types qw(
@@ -214,6 +214,8 @@ __PACKAGE__->meta->make_immutable;
 1;
 __END__
 
+=encoding utf-8
+
 =head1 NAME
 
 Search::Sitemap - Perl extension for managing Search Engine Sitemaps
@@ -387,6 +389,10 @@ The home page of this module is
 L<http://www.jasonkohles.com/software/search-sitemap>.  This is where you can
 always find the latest version, development versions, and bug reports.  You
 will also find a link there to report bugs.
+ 
+=head1 ACKNOWLEDGEMENTS
+
+Thanks to Alex J. G. Burzyński for help with maintaining this module.
 
 =head1 SEE ALSO
 
