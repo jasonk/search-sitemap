@@ -17,8 +17,10 @@ sub get {
 
 sub put {
     my $self = shift;
-    my $storage = $self->storage;
-    for my $obj ( @_ ) { $self->storage->{ $obj->loc } = $obj }
+
+    $self->storage->{ $_->loc } = $_ for @_;
+
+    return 1;
 }
 
 sub all { return values %{ shift->storage } }
