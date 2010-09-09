@@ -118,6 +118,8 @@ coerce SitemapLastMod,
     };
 
 subtype SitemapPriority, as Num, where { $_ >= 0 && $_ <= 1 };
+coerce SitemapPriority,
+    from Num, via { $_ };
 
 class_type( 'Search::Sitemap::URLStore' );
 subtype SitemapUrlStore, as 'Search::Sitemap::URLStore';
