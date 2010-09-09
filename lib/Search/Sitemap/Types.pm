@@ -54,11 +54,25 @@ coerce SitemapChangeFreq, from Str, via {
 };
 
 my $lastmod_re = qr/ ^
-    (\d\d\d\d-\d\d-\d\d)    # date
-    (?:                     # time portion is optional
-        [T\s]               # T or ' '
-        (\d\d:\d\d)(:\d\d)? # time, with optional seconds
-        (Z|\+\d\d?)(:\d\d)? # timezone offset, with optional seconds
+    (\d{4})                 # year
+        \-?
+    (\d{2})?                # month
+        \-?
+    (\d{2})?                # day
+    (?:
+        T
+        (\d{2})             # hours
+        :
+        (\d{2})             # minutes
+        (?:
+            :(\d{2})        # seconds
+            (?:
+                \.(\d+)     # fraction of second
+            )?
+        )?
+        (?:
+            (Z|[\+\-]?\d{2}:\d{2}) # time zone
+        )?
     )?
 $ /xi;
 
@@ -71,50 +85,34 @@ class_type 'Path::Class::File';
 
 coerce SitemapLastMod,
     from Str, via {
-        if ( /$lastmod_re/ ) {
-            my ( $date, $time, $sec, $tzoff, $tzsec ) = ( $1, $2, $3, $4, $5 );
-
-            return $date unless $time;
-
-            $time .= $sec || ':00';
-
-            if ( defined $tzsec ) { $tzoff .= $tzsec }
-
-            if ( $tzoff =~ /^([+-])?(\d\d):?(\d\d)/ ) {
-                $tzoff = sprintf( '%s%02d:%02d', $1 || '+', $2, $3 || 0 );
-            } else {
-                $tzoff = '+00:00';
-            }
-            return $date.'T'.$time.$tzoff;
-        } elsif ( $_ eq 'now' ) {
-            return strftime( "%Y-%m-%dT%H:%M:%S+00:00", gmtime( time ) );
+        if ( $_ eq 'now' ) {
+            return strftime( "%FT%T+00:00", gmtime( time ) );
         } elsif ( $_ =~ /^\d+$/ ) {
-            return strftime( "%Y-%m-%dT%H:%M:%S+00:00", gmtime( $_ ) );
-        } else {
-            die "Unknown string value '$_'";
+            return strftime( "%FT%T+00:00", gmtime( $_ ) );
         }
+        return $_;
     },
     from Num, via {
-        return strftime( "%Y-%m-%dT%H:%M:%S+00:00", gmtime( $_ ) );
+        return strftime( "%FT%T+00:00", gmtime( $_ ) );
     },
     from 'DateTime', via {
-        my ( $date, $tzoff ) = $_->strftime("%Y-%m-%dT%H:%M:%S","%z");
-        if ( $tzoff =~ /^([+-])?(\d\d):?(\d\d)/ ) {
+        my ( $datetime, $tzoff ) = $_->strftime("%FT%T","%z");
+        if ( $tzoff =~ /^([+\-])?(\d\d):?(\d\d)/ ) {
             $tzoff = sprintf( '%s%02d:%02d', $1 || '+', $2, $3 || 0 );
         } else {
             $tzoff = '+00:00';
         }
-        return $date.$tzoff;
+        return $datetime.$tzoff;
     },
     from 'HTTP::Response', via {
         my $modtime = $_->last_modified || ( time - $_->current_age );
-        return strftime( "%Y-%m-%dT%H:%M:%S+00:00", gmtime( $modtime ) );
+        return strftime( "%FT%T+00:00", gmtime( $modtime ) );
     },
     from 'File::stat', via {
-        return strftime( "%Y-%m-%dT%H:%M:%S+00:00", gmtime( $_->mtime ) );
+        return strftime( "%FT%T+00:00", gmtime( $_->mtime ) );
     },
     from 'Path::Class::File', via {
-        return strftime( "%Y-%m-%dT%H:%M:%S+00:00", gmtime( $_->stat->mtime ) );
+        return strftime( "%FT%T+00:00", gmtime( $_->stat->mtime ) );
     };
 
 subtype SitemapPriority, as Num, where { $_ >= 0 && $_ <= 1 };
