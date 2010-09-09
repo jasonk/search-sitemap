@@ -55,17 +55,17 @@ has 'xmlparser' => (
             twig_roots  => {
                 $self->base_element => sub {
                     my ( $twig, $elt ) = @_;
-                    my %url = ();
                     foreach my $c ( $elt->children ) {
+                        my %url = ();
                         my $var = $c->gi;
-                        if ( $var eq 'loc' ) {
-                            $url{ $var } = decode_entities( $c->text );
-                        } else {
-                            $url{ $var } = $c->text;
+                        croak "Unrecognised element $var"
+                            unless $var =~ /^(?:url|sitemap)$/;
+                        foreach my $e ( $c->children ) {
+                            $url{ $e->gi } = decode_entities( $e->text );
                         }
+                        $self->update( \%url );
                     }
                     $twig->purge;
-                    $self->update( \%url );
                 },
             },
         );
@@ -101,8 +101,7 @@ sub _build_xml_headers {
     }
 }
 
-has 'xml'   => ( is => 'ro', isa => Str, lazy_build  => 1 );
-sub _build_xml {
+sub xml {
     my $self = shift;
 
     my $xml = XML::Twig::Elt->new(
