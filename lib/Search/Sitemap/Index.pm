@@ -30,7 +30,7 @@ Search::SiteMap::Index - Perl extension for managing SiteMap Indexes
 
 =head1 SYNOPSIS
 
-  use Search:SiteMap::Index;
+  use Search::SiteMap::Index;
   
   my $index = Search::SiteMap::Index->new( file => 'sitemap-index.gz' );
   
