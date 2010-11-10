@@ -86,17 +86,17 @@ class_type 'Path::Class::File';
 coerce SitemapLastMod,
     from Str, via {
         if ( $_ eq 'now' ) {
-            return strftime( "%FT%T+00:00", gmtime( time ) );
+            return strftime( "%Y-%m-%dT%H:%M:%S+00:00", gmtime( time ) );
         } elsif ( $_ =~ /^\d+$/ ) {
-            return strftime( "%FT%T+00:00", gmtime( $_ ) );
+            return strftime( "%Y-%m-%dT%H:%M:%S+00:00", gmtime( $_ ) );
         }
         return $_;
     },
     from Num, via {
-        return strftime( "%FT%T+00:00", gmtime( $_ ) );
+        return strftime( "%Y-%m-%dT%H:%M:%S+00:00", gmtime( $_ ) );
     },
     from 'DateTime', via {
-        my ( $datetime, $tzoff ) = $_->strftime("%FT%T","%z");
+        my ( $datetime, $tzoff ) = $_->strftime("%Y-%m-%dT%H:%M:%S","%z");
         if ( $tzoff =~ /^([+\-])?(\d\d):?(\d\d)/ ) {
             $tzoff = sprintf( '%s%02d:%02d', $1 || '+', $2, $3 || 0 );
         } else {
@@ -106,13 +106,13 @@ coerce SitemapLastMod,
     },
     from 'HTTP::Response', via {
         my $modtime = $_->last_modified || ( time - $_->current_age );
-        return strftime( "%FT%T+00:00", gmtime( $modtime ) );
+        return strftime( "%Y-%m-%dT%H:%M:%S+00:00", gmtime( $modtime ) );
     },
     from 'File::stat', via {
-        return strftime( "%FT%T+00:00", gmtime( $_->mtime ) );
+        return strftime( "%Y-%m-%dT%H:%M:%S+00:00", gmtime( $_->mtime ) );
     },
     from 'Path::Class::File', via {
-        return strftime( "%FT%T+00:00", gmtime( $_->stat->mtime ) );
+        return strftime( "%Y-%m-%dT%H:%M:%S+00:00", gmtime( $_->stat->mtime ) );
     };
 
 subtype SitemapPriority, as Num, where { $_ >= 0 && $_ <= 1 };
