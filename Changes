@@ -1,5 +1,11 @@
 Revision history for Perl extension Search::Sitemap.
 
+2.12
+    - Fix wrong datetime formatting for strftime (%FT%T is not portable),
+      reported by Andrew Scheller [github issue #1]
+    - Fix [rt.cpan.org #57420] this time for sure, reported by Andrew Scheller
+      [github issue #2]
+
 2.11
     - Fixed Moose warning about coercion [rt.cpan.org #60468]
       reported by stephen@enterity.com
