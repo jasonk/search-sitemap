@@ -26,16 +26,16 @@ __END__
 
 =head1 NAME
 
-Search::SiteMap::Index - Perl extension for managing SiteMap Indexes
+Search::Sitemap::Index - Perl extension for managing Sitemap Indexes
 
 =head1 SYNOPSIS
 
-  use Search::SiteMap::Index;
+  use Search::Sitemap::Index;
   
-  my $index = Search::SiteMap::Index->new();
+  my $index = Search::Sitemap::Index->new();
   $index->read( 'sitemap-index.gz' );
   
-  $index->add( Search::SiteMap::URL->new(
+  $index->add( Search::Sitemap::URL->new(
     loc     => 'http://www.jasonkohles.com/sitemap1.gz',
     lastmod => '2005-11-01',
   ) );
