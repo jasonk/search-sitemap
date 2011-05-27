@@ -1,6 +1,6 @@
 package Search::Sitemap;
 use strict; use warnings;
-our $VERSION = '2.10';
+our $VERSION = '2.12';
 our $AUTHORITY = 'cpan:JASONK';
 use Moose;
 use Search::Sitemap::Types qw(
@@ -55,17 +55,17 @@ has 'xmlparser' => (
             twig_roots  => {
                 $self->base_element => sub {
                     my ( $twig, $elt ) = @_;
-                    my %url = ();
                     foreach my $c ( $elt->children ) {
+                        my %url = ();
                         my $var = $c->gi;
-                        if ( $var eq 'loc' ) {
-                            $url{ $var } = decode_entities( $c->text );
-                        } else {
-                            $url{ $var } = $c->text;
+                        croak "Unrecognised element $var"
+                            unless $var =~ /^(?:url|sitemap)$/;
+                        foreach my $e ( $c->children ) {
+                            $url{ $e->gi } = decode_entities( $e->text );
                         }
+                        $self->update( \%url );
                     }
                     $twig->purge;
-                    $self->update( \%url );
                 },
             },
         );
@@ -101,8 +101,7 @@ sub _build_xml_headers {
     }
 }
 
-has 'xml'   => ( is => 'ro', isa => Str, lazy_build  => 1 );
-sub _build_xml {
+sub xml {
     my $self = shift;
 
     my $xml = XML::Twig::Elt->new(
@@ -215,6 +214,8 @@ __PACKAGE__->meta->make_immutable;
 1;
 __END__
 
+=encoding utf-8
+
 =head1 NAME
 
 Search::Sitemap - Perl extension for managing Search Engine Sitemaps
@@ -274,7 +275,11 @@ automatically if the filename ends with .gz.
 
 =head2 urls()
 
-Return the L<Search::Sitemap::URL> objects that make up the sitemap.
+Return the L<Search::Sitemap::URLStore> object that make up the sitemap.
+
+To get all urls (L<Search::Sitemap::URL> objects) please use:
+
+    my @urls = $map->urls->all;
 
 =head2 add( $item, [$item...] )
 
@@ -384,6 +389,10 @@ The home page of this module is
 L<http://www.jasonkohles.com/software/search-sitemap>.  This is where you can
 always find the latest version, development versions, and bug reports.  You
 will also find a link there to report bugs.
+ 
+=head1 ACKNOWLEDGEMENTS
+
+Thanks to Alex J. G. Burzyński for help with maintaining this module.
 
 =head1 SEE ALSO
 

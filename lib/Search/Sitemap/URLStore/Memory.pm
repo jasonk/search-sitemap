@@ -1,6 +1,6 @@
 package Search::Sitemap::URLStore::Memory;
 use strict; use warnings;
-our $VERSION = '2.10';
+our $VERSION = '2.12';
 our $AUTHORITY = 'cpan:JASONK';
 use Moose;
 extends 'Search::Sitemap::URLStore';
@@ -17,8 +17,10 @@ sub get {
 
 sub put {
     my $self = shift;
-    my $storage = $self->storage;
-    for my $obj ( @_ ) { $self->storage->{ $obj->loc } = $obj }
+
+    $self->storage->{ $_->loc } = $_ for @_;
+
+    return 1;
 }
 
 sub all { return values %{ shift->storage } }
