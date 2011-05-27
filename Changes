@@ -1,5 +1,13 @@
 Revision history for Perl extension Search::Sitemap.
 
+2.13
+    - Finally updated after a long hiatus (sorry about that)
+    - Special thanks to Alex J. G. Burzynski, who wrote all the patches
+      for the fixes in versions 2.11 and 2.12, and to Christopher J. Madsen,
+      who forked my github repo, applied all the patches, and turned it all
+      into a pull request to make it much easier for me to get the fixes
+      applied.
+
 2.12
     - Fix wrong datetime formatting for strftime (%FT%T is not portable),
       reported by Andrew Scheller [github issue #1]

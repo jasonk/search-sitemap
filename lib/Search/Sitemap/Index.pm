@@ -1,6 +1,6 @@
 package Search::Sitemap::Index;
 use strict; use warnings;
-our $VERSION = '2.12';
+our $VERSION = '2.13';
 our $AUTHORITY = 'cpan:JASONK';
 use Moose;
 extends 'Search::Sitemap';
